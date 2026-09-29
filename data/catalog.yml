@@ -1,0 +1,363 @@
+# Facts for generated cards, the project matrix, and the fact sheets.
+# Prose pages may link here. They should not restate a field this file owns.
+
+languages:
+  - id: c
+    name: C
+    url: https://leo-gan.github.io/GLD.SerializerBenchmark/c/
+  - id: csharp
+    name: C#
+    url: https://leo-gan.github.io/GLD.SerializerBenchmark/c-sharp/
+    page: languages/csharp.md
+  - id: cpp
+    name: C++
+    url: https://leo-gan.github.io/GLD.SerializerBenchmark/cpp/
+  - id: go
+    name: Go
+    url: https://leo-gan.github.io/GLD.SerializerBenchmark/go/
+  - id: java
+    name: Java
+    url: https://leo-gan.github.io/GLD.SerializerBenchmark/java/
+  - id: javascript
+    name: JavaScript
+    url: https://leo-gan.github.io/GLD.SerializerBenchmark/javascript/
+  - id: kotlin
+    name: Kotlin
+    url: https://leo-gan.github.io/GLD.SerializerBenchmark/kotlin/
+  - id: mojo
+    name: Mojo
+    url: https://leo-gan.github.io/GLD.SerializerBenchmark/mojo/
+    page: languages/mojo.md
+  - id: php
+    name: PHP
+    url: https://leo-gan.github.io/GLD.SerializerBenchmark/php/
+  - id: python
+    name: Python
+    url: https://leo-gan.github.io/GLD.SerializerBenchmark/python/
+    page: languages/python.md
+  - id: rust
+    name: Rust
+    url: https://leo-gan.github.io/GLD.SerializerBenchmark/rust/
+  - id: swift
+    name: Swift
+    url: https://leo-gan.github.io/GLD.SerializerBenchmark/swift/
+  - id: zig
+    name: Zig
+    url: https://leo-gan.github.io/GLD.SerializerBenchmark/zig/
+
+formats:
+  - id: json
+    name: JSON
+    page: formats/json.md
+    summary: Self-describing text. A schema is optional.
+    body: >
+      JSON (JavaScript Object Notation) is a text format defined by RFC 8259.
+      A decoder can walk a value without a schema, because every value starts
+      with a recognizable token. The Mojo library can generate structs from a
+      JSON Schema subset. Schema-free code uses JsonValue.
+    traits:
+      binary: "No"
+      human_readable: "Yes"
+      self_describing: "Yes"
+      schema: "Optional"
+      zero_copy: "Not claimed"
+
+  - id: yaml
+    name: YAML
+    page: formats/yaml.md
+    summary: Human-readable text. The Mojo library implements YAML 1.2 Core.
+    body: >
+      YAML is a text format. Block collections use indentation. Flow
+      collections use brackets and braces, in the same way JSON does.
+      The Mojo library implements YAML 1.2 Core. It does not implement
+      YAML 1.1 implicit typing, so words such as yes and no stay strings.
+      A schema is optional. The library can generate structs from a JSON
+      Schema subset. Schema-free code uses YamlValue.
+    traits:
+      binary: "No"
+      human_readable: "Yes"
+      self_describing: "Yes"
+      schema: "Optional"
+      zero_copy: "Not claimed"
+
+  - id: protobuf
+    name: Protocol Buffers
+    page: formats/protobuf.md
+    summary: Schema-driven binary records, written from a .proto file.
+    body: >
+      Protocol Buffers is a schema-driven binary format. A .proto file names
+      the fields and their field numbers. The encoder writes a tag and a
+      payload for each present field. The bytes do not carry field names.
+      Field numbers stay stable when a field is renamed. A new field number
+      can be added without breaking an old reader that follows the same
+      presence rules. The Mojo library generates code from that schema.
+    traits:
+      binary: "Yes"
+      human_readable: "No"
+      self_describing: "No"
+      schema: "Required"
+      zero_copy: "Not claimed"
+
+  - id: avro
+    name: Apache Avro
+    page: formats/avro.md
+    summary: Schema-first binary records, with a writer schema and a reader schema.
+    body: >
+      Apache Avro is a schema-first binary format. Fields are written in
+      schema order. The wire encoding does not carry field names or field
+      tags. The reader uses a schema too. The writer schema and the reader
+      schema do not have to match. Avro defines how a reader resolves the
+      writer's schema against its own. The Mojo library accepts Avro JSON
+      schemas (.avsc) and Avro IDL (.avdl).
+    traits:
+      binary: "Yes"
+      human_readable: "No"
+      self_describing: "No"
+      schema: "Required"
+      zero_copy: "Not claimed"
+
+  - id: flatbuffers
+    name: FlatBuffers
+    page: formats/flatbuffers.md
+    summary: Schema-driven binary tables, plus self-describing FlexBuffers.
+    body: >
+      FlatBuffers is a binary format. A .fbs schema describes tables, structs,
+      enums, and unions. A table stores a vtable of field offsets, so a reader
+      can take one field from the buffer. Fields may be added later. An old
+      reader skips a field it does not know, because a missing vtable slot is
+      a zero offset. The Mojo library generates a builder, a view, and an
+      owned unpack. The view reads fields from the buffer and does not copy
+      strings until the caller asks. The same library implements FlexBuffers.
+      FlexBuffers stores a type on each value, so that encoding does not need
+      a .fbs file.
+    traits:
+      binary: "Yes"
+      human_readable: "No"
+      self_describing: "Tables no, FlexBuffers yes"
+      schema: "Required for tables"
+      zero_copy: "Yes"
+
+  - id: cbor
+    name: CBOR
+    page: formats/cbor.md
+    summary: Self-describing binary items. CDDL is an optional schema.
+    body: >
+      CBOR (Concise Binary Object Representation) is a binary format defined
+      by RFC 8949. Every item starts with a head byte that names its major
+      type. A decoder does not need a schema to walk an item. CDDL, defined
+      by RFC 8610, is an optional schema language. The Mojo library generates
+      structs from CDDL. Schema-free code uses CborValue.
+    traits:
+      binary: "Yes"
+      human_readable: "No"
+      self_describing: "Yes"
+      schema: "Optional"
+      zero_copy: "Not claimed"
+
+  - id: messagepack
+    name: MessagePack
+    page: formats/messagepack.md
+    summary: Self-describing binary objects. A schema is optional.
+    body: >
+      MessagePack is a self-describing binary format. Every object starts
+      with one type byte. A decoder can walk an object without a schema.
+      The Mojo library can generate structs from a JSON Schema subset.
+      Schema-free code uses MsgpackValue.
+    traits:
+      binary: "Yes"
+      human_readable: "No"
+      self_describing: "Yes"
+      schema: "Optional"
+      zero_copy: "Not claimed"
+
+  - id: bson
+    name: BSON
+    page: formats/bson.md
+    summary: Binary documents. Every field carries a type byte and a name.
+    body: >
+      BSON is a binary format for documents. A document is an ordered list of
+      named fields. Each field has a type byte, a name, and a value. The type
+      byte tells a decoder how to walk the document without a schema. The
+      Mojo library can generate structs from a JSON Schema. Extended JSON is
+      a text spelling of the same values. The bytes this library writes are
+      the binary form.
+    traits:
+      binary: "Yes"
+      human_readable: "No"
+      self_describing: "Yes"
+      schema: "Optional"
+      zero_copy: "Not claimed"
+
+measurements:
+  - name: Encode time
+    detail: Wall time to serialize one payload. The runner column is TimeSer, in nanoseconds.
+  - name: Decode time
+    detail: Wall time to deserialize that payload. The runner column is TimeDeser, in nanoseconds.
+  - name: Payload size
+    detail: Raw wire size in bytes.
+  - name: Throughput
+    detail: Operations per second, derived from the wall time.
+  - name: Fidelity
+    detail: A score for the round trip. On the benchmark site, 1.0 means the check passed.
+  - name: Peak memory
+    detail: Recorded only when that language runner reports MemoryPeakBytes.
+
+planned_measurements:
+  - name: Compressed size
+    detail: gzip and zstd payload sizes are named as planned metrics on the benchmark site.
+  - name: Zero-copy access time
+    detail: An access-time metric, time_access_ns, is named as planned. It is not a result this hub shows.
+
+projects:
+  - id: serializer-benchmark
+    name: GLD.SerializerBenchmark
+    page: projects/serializer-benchmark.md
+    category: benchmark
+    summary: Compares serialization libraries across 13 languages.
+    detail: >
+      The suite records encode time, decode time, payload size, throughput,
+      and a fidelity check for the round trip. Peak memory is recorded when
+      a language runner provides it. The Mojo runner times the libraries
+      indexed on this site. The benchmark also times many libraries that do
+      not have a repository here. Published numbers, and the rules for reading
+      them, stay on the benchmark site.
+    repository: https://github.com/leo-gan/GLD.SerializerBenchmark
+    documentation: https://leo-gan.github.io/GLD.SerializerBenchmark/
+    dashboard: https://leo-gan.github.io/GLD.SerializerBenchmark/dashboard/
+    methodology: https://leo-gan.github.io/GLD.SerializerBenchmark/analysis/ANALYSIS_METHODOLOGY/
+    metrics: https://leo-gan.github.io/GLD.SerializerBenchmark/analysis/METRICS/
+    formats: [json, yaml, protobuf, avro, flatbuffers, cbor, messagepack, bson]
+    languages: [c, csharp, cpp, go, java, javascript, kotlin, mojo, php, python, rust, swift, zig]
+    matrix:
+      format: Multiple
+      language: 13 languages
+      benchmark: "Yes"
+      schema: Covers both
+      zero_copy: Not claimed
+
+  - id: json
+    name: gld-json
+    page: projects/json.md
+    category: implementation
+    format: json
+    summary: A from-scratch JSON implementation for Mojo.
+    repository: https://github.com/leo-gan/gld-json
+    documentation: https://leo-gan.github.io/gld-json/
+    package: mojo-json
+    channel: https://prefix.dev/leo-gan/leo-gan
+    oracle: Python's json module, for golden text
+    avoids: simdjson, yyjson, or any other C, C++, or Rust JSON library
+    extra: The code generator reads a JSON Schema subset.
+    languages: [mojo]
+
+  - id: yaml
+    name: gld-yaml
+    page: projects/yaml.md
+    category: implementation
+    format: yaml
+    summary: A from-scratch YAML 1.2 implementation for Mojo.
+    repository: https://github.com/leo-gan/gld-yaml
+    documentation: https://leo-gan.github.io/gld-yaml/
+    package: mojo-yaml
+    channel: https://prefix.dev/leo-gan/leo-gan
+    oracle: PyYAML, for values that are safe under the YAML 1.2 Core schema
+    avoids: libyaml, RapidYAML, yaml-cpp, or any other C, C++, or Rust YAML library
+    extra: >
+      The codec implements YAML 1.2 Core, not YAML 1.1 implicit typing.
+      The code generator reads a JSON Schema subset.
+    languages: [mojo]
+
+  - id: protobuf
+    name: gld-protobuf
+    page: projects/protobuf.md
+    category: implementation
+    format: protobuf
+    summary: A from-scratch Protocol Buffers implementation for Mojo.
+    repository: https://github.com/leo-gan/gld-protobuf
+    documentation: https://leo-gan.github.io/gld-protobuf/
+    package: mojo-protobuf
+    channel: https://prefix.dev/leo-gan/leo-gan
+    oracle: Python's google.protobuf package, for golden bytes
+    avoids: libprotobuf, protobuf-c, nanopb, protozero, prost, or any other C, C++, or Rust protobuf library
+    extra: >
+      protoc compiles .proto files to a FileDescriptorSet at build time.
+      The runtime does not link protoc.
+    languages: [mojo]
+
+  - id: avro
+    name: gld-avro
+    page: projects/avro.md
+    category: implementation
+    format: avro
+    summary: A from-scratch Apache Avro implementation for Mojo.
+    repository: https://github.com/leo-gan/gld-avro
+    documentation: https://leo-gan.github.io/gld-avro/
+    package: mojo-avro
+    channel: https://prefix.dev/leo-gan/leo-gan
+    oracle: Python's avro package, for golden bytes
+    avoids: libavro, apache-avro-rs, or any other C, C++, or Rust Avro library
+    extra: The code generator accepts Avro JSON schemas (.avsc) and Avro IDL (.avdl).
+    languages: [mojo]
+
+  - id: flatbuffers
+    name: gld-flatbuffers
+    page: projects/flatbuffers.md
+    category: implementation
+    format: flatbuffers
+    summary: A from-scratch FlatBuffers implementation for Mojo.
+    repository: https://github.com/leo-gan/gld-flatbuffers
+    documentation: https://leo-gan.github.io/gld-flatbuffers/
+    package: mojo-flatbuffers
+    channel: https://prefix.dev/leo-gan/leo-gan
+    oracle: flatc and Python's flatbuffers package
+    avoids: the C++ FlatBuffers library, flatcc, or any other C, C++, or Rust FlatBuffers library
+    extra: >
+      The generator parses .fbs text. flatc can also produce a binary schema
+      (.bfbs). Generated code offers a builder, a view over the encoded buffer,
+      and an owned unpack.
+    languages: [mojo]
+
+  - id: cbor
+    name: gld-cbor
+    page: projects/cbor.md
+    category: implementation
+    format: cbor
+    summary: A from-scratch CBOR implementation for Mojo.
+    repository: https://github.com/leo-gan/gld-cbor
+    documentation: https://leo-gan.github.io/gld-cbor/
+    package: mojo-cbor
+    channel: https://prefix.dev/leo-gan/leo-gan
+    oracle: Python's cbor2 package, for golden bytes
+    avoids: libcbor, tinycbor, or any other C, C++, or Rust CBOR library
+    extra: The code generator reads CDDL.
+    languages: [mojo]
+
+  - id: messagepack
+    name: gld-messagepack
+    page: projects/messagepack.md
+    category: implementation
+    format: messagepack
+    summary: A from-scratch MessagePack implementation for Mojo.
+    repository: https://github.com/leo-gan/gld-messagepack
+    documentation: https://leo-gan.github.io/gld-messagepack/
+    package: mojo-messagepack
+    channel: https://prefix.dev/leo-gan/leo-gan
+    oracle: Python's msgpack package, for golden bytes
+    avoids: msgpack-c or any other C, C++, or Rust MessagePack library
+    extra: The code generator reads a JSON Schema subset.
+    languages: [mojo]
+
+  - id: bson
+    name: gld-bson
+    page: projects/bson.md
+    category: implementation
+    format: bson
+    summary: A from-scratch BSON implementation for Mojo.
+    repository: https://github.com/leo-gan/gld-bson
+    documentation: https://leo-gan.github.io/gld-bson/
+    package: mojo-bson
+    channel: https://prefix.dev/leo-gan/leo-gan
+    oracle: pymongo, for golden bytes
+    avoids: libbson or any other C, C++, or Rust BSON library
+    extra: The code generator reads a JSON Schema.
+    languages: [mojo]
