@@ -1,0 +1,94 @@
+site_name: Serialization
+site_description: Serialization implementations, the formats they speak, and the benchmark that measures them.
+site_url: https://leo-gan.github.io/serialization/
+repo_url: https://github.com/leo-gan/serialization
+repo_name: leo-gan/serialization
+copyright: Copyright &copy; 2026 Leonid Ganeline
+
+strict: true
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
+
+extra_css:
+  - stylesheets/extra.css
+
+plugins:
+  - search
+  - macros:
+      module_name: main
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+validation:
+  nav:
+    omitted_files: warn
+  links:
+    not_found: warn
+    absolute_links: warn
+    unrecognized_links: warn
+    anchors: warn
+
+nav:
+  - Home: index.md
+  - Projects:
+      - Overview: projects/index.md
+      - GLD.SerializerBenchmark: projects/serializer-benchmark.md
+      - gld-json: projects/json.md
+      - gld-yaml: projects/yaml.md
+      - gld-protobuf: projects/protobuf.md
+      - gld-avro: projects/avro.md
+      - gld-flatbuffers: projects/flatbuffers.md
+      - gld-cbor: projects/cbor.md
+      - gld-messagepack: projects/messagepack.md
+      - gld-bson: projects/bson.md
+  - Formats:
+      - Overview: formats/index.md
+      - JSON: formats/json.md
+      - YAML: formats/yaml.md
+      - Protocol Buffers: formats/protobuf.md
+      - Apache Avro: formats/avro.md
+      - FlatBuffers: formats/flatbuffers.md
+      - CBOR: formats/cbor.md
+      - MessagePack: formats/messagepack.md
+      - BSON: formats/bson.md
+  - Benchmarks:
+      - Overview: benchmarks/index.md
+      - Methodology: benchmarks/methodology.md
+      - Results: benchmarks/results.md
+      - Cross-format comparison: benchmarks/comparison.md
+  - Languages:
+      - Overview: languages/index.md
+      - C#: languages/csharp.md
+      - Python: languages/python.md
+      - Mojo: languages/mojo.md
+  - About: about.md
