@@ -1,8 +1,8 @@
 # Serialization
 
-Index of serialization implementations and of the benchmark that measures them.
+This site stores links to GLD.SerializerBenchmark and to the Mojo gld-* libraries.
 
-Each linked repository stays usable on its own. This site is the index. The address is [leo-gan.github.io/serialization](https://leo-gan.github.io/serialization/) after GitHub Pages is set to publish the `gh-pages` branch.
+Each linked repository stays usable on its own. The address is [leo-gan.github.io/serialization](https://leo-gan.github.io/serialization/) after GitHub Pages is set to publish the `gh-pages` branch.
 
 ## Preview
 
@@ -13,9 +13,11 @@ pip install -r requirements.txt
 mkdocs serve
 ```
 
-## Change a fact once
+## Change a link
 
-Names, links, and the capability matrix live in [`data/catalog.yml`](data/catalog.yml). The pages call macros in [`main.py`](main.py). Edit the catalog, add the Markdown page the catalog names, add that page to `nav` in [`mkdocs.yml`](mkdocs.yml), then rebuild.
+Names, serializer types, and URLs live in [`data/catalog.yml`](data/catalog.yml). The Mojo pages call `library_page` in [`main.py`](main.py).
+
+To add a library, add a catalog entry, add `docs/mojo/<name>.md` containing the `library_page` call, and add that page under `Mojo serializers` in [`mkdocs.yml`](mkdocs.yml). The Mojo index lists every library in the catalog.
 
 Add a repository when it has code and a GitHub remote.
 

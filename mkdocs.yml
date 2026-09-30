@@ -1,5 +1,5 @@
 site_name: Serialization
-site_description: Serialization implementations, the formats they speak, and the benchmark that measures them.
+site_description: Links to GLD.SerializerBenchmark and the Mojo gld-* serialization libraries.
 site_url: https://leo-gan.github.io/serialization/
 repo_url: https://github.com/leo-gan/serialization
 repo_name: leo-gan/serialization
@@ -27,9 +27,6 @@ theme:
       toggle:
         icon: material/weather-night
         name: Switch to light mode
-
-extra_css:
-  - stylesheets/extra.css
 
 plugins:
   - search
@@ -59,36 +56,20 @@ validation:
     anchors: warn
 
 nav:
-  - Home: index.md
-  - Projects:
-      - Overview: projects/index.md
-      - GLD.SerializerBenchmark: projects/serializer-benchmark.md
-      - gld-json: projects/json.md
-      - gld-yaml: projects/yaml.md
-      - gld-protobuf: projects/protobuf.md
-      - gld-avro: projects/avro.md
-      - gld-flatbuffers: projects/flatbuffers.md
-      - gld-cbor: projects/cbor.md
-      - gld-messagepack: projects/messagepack.md
-      - gld-bson: projects/bson.md
-  - Formats:
-      - Overview: formats/index.md
-      - JSON: formats/json.md
-      - YAML: formats/yaml.md
-      - Protocol Buffers: formats/protobuf.md
-      - Apache Avro: formats/avro.md
-      - FlatBuffers: formats/flatbuffers.md
-      - CBOR: formats/cbor.md
-      - MessagePack: formats/messagepack.md
-      - BSON: formats/bson.md
-  - Benchmarks:
-      - Overview: benchmarks/index.md
-      - Methodology: benchmarks/methodology.md
-      - Results: benchmarks/results.md
-      - Cross-format comparison: benchmarks/comparison.md
-  - Languages:
-      - Overview: languages/index.md
-      - C#: languages/csharp.md
-      - Python: languages/python.md
-      - Mojo: languages/mojo.md
-  - About: about.md
+  - serialization:
+      - Overview: index.md
+      - Theory: https://leo-gan.github.io/GLD.SerializerBenchmark/theory
+      - Standards: serialization/standards.md
+      - Types: serialization/types.md
+  - serializer-benchmark: serializer-benchmark/index.md
+  - Mojo serializers:
+      - Overview: mojo/index.md
+      - gld-avro: mojo/avro.md
+      - gld-bson: mojo/bson.md
+      - gld-cbor: mojo/cbor.md
+      - gld-flatbuffers: mojo/flatbuffers.md
+      - gld-json: mojo/json.md
+      - gld-messagepack: mojo/messagepack.md
+      - gld-protobuf: mojo/protobuf.md
+      - gld-toml: mojo/toml.md
+      - gld-yaml: mojo/yaml.md
