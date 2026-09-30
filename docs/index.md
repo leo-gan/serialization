@@ -1,36 +1,11 @@
----
-hide:
-  - navigation
-  - toc
----
+# Overview
 
-# Serialization
+This site stores links to GLD.SerializerBenchmark and to the Mojo gld-* libraries.
 
-<p class="hub-lede">This site indexes serialization implementations, the formats they speak, and the benchmark that measures them.</p>
+Serialization turns an in-memory value into an ordered sequence of bytes. Deserialization rebuilds a value from those bytes. Programs do this when a value has to be stored or sent.
 
-Each GitHub repository stays usable on its own. Use this site as the index.
+Serialization 101 on the benchmark explains this idea from three perspectives:
 
-<div class="hub-actions" markdown>
-
-[Explore projects](projects/index.md){ .md-button .md-button--primary }
-[View benchmarks](benchmarks/index.md){ .md-button }
-
-</div>
-
-## Projects
-
-{{ project_cards() }}
-
-## Formats
-
-A format page says what the encoding is and which repository implements it.
-
-{{ format_cards() }}
-
-## Benchmarks
-
-The benchmark records the measurements below. Published numbers stay on the benchmark dashboard. This page does not copy them.
-
-{{ measurement_cards() }}
-
-Definitions and the limits on comparison are in the [methodology](benchmarks/methodology.md).
+- [Historical perspective](https://leo-gan.github.io/GLD.SerializerBenchmark/theory/101/historical_perspective/)
+- [Data science perspective](https://leo-gan.github.io/GLD.SerializerBenchmark/theory/101/data_science_perspective/)
+- [Engineering perspective](https://leo-gan.github.io/GLD.SerializerBenchmark/theory/101/engineer_perspective/)
