@@ -1,6 +1,6 @@
 # Serialization
 
-This site stores links to GLD.SerializerBenchmark and to the Mojo gld-* libraries.
+This site stores links to GLD.SerializerBenchmark and to the Mojo gld-* libraries. The libraries target Mojo 1.1.
 
 Each linked repository stays usable on its own. The address is [leo-gan.github.io/serialization](https://leo-gan.github.io/serialization/) after GitHub Pages is set to publish the `gh-pages` branch.
 

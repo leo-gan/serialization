@@ -25,6 +25,12 @@ standards:
   - id: bson
     name: BSON
     type: schema-less
+  - id: ion
+    name: Amazon Ion
+    type: schema-less
+  - id: smile
+    name: Smile
+    type: schema-less
   - id: protobuf
     name: Protocol Buffers
     type: schema
@@ -56,6 +62,11 @@ libraries:
     standard: flatbuffers
     repository: https://github.com/leo-gan/gld-flatbuffers
     documentation: https://leo-gan.github.io/gld-flatbuffers/
+  - id: gld-ion
+    name: gld-ion
+    standard: ion
+    repository: https://github.com/leo-gan/gld-ion
+    documentation: https://leo-gan.github.io/gld-ion/
   - id: gld-json
     name: gld-json
     standard: json
@@ -71,6 +82,11 @@ libraries:
     standard: protobuf
     repository: https://github.com/leo-gan/gld-protobuf
     documentation: https://leo-gan.github.io/gld-protobuf/
+  - id: gld-smile
+    name: gld-smile
+    standard: smile
+    repository: https://github.com/leo-gan/gld-smile
+    documentation: https://leo-gan.github.io/gld-smile/
   - id: gld-toml
     name: gld-toml
     standard: toml

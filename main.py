@@ -194,7 +194,7 @@ def define_env(env) -> None:
             f"| Documentation | {_link(library['documentation'])} |",
         ]
         prose = (
-            f"{library['name']} is a Mojo library for {standard['name']}. "
+            f"{library['name']} is a Mojo 1.1 library for {standard['name']}. "
             f"The serializer type is {standard['type']}."
         )
         return "\n".join(
