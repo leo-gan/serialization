@@ -1,5 +1,5 @@
 site_name: Serialization
-site_description: Links to GLD.SerializerBenchmark and the Mojo gld-* serialization libraries.
+site_description: Links to GLD.SerializerBenchmark and the Mojo 1.1 gld-* serialization libraries.
 site_url: https://leo-gan.github.io/serialization/
 repo_url: https://github.com/leo-gan/serialization
 repo_name: leo-gan/serialization
@@ -68,8 +68,10 @@ nav:
       - gld-bson: mojo/bson.md
       - gld-cbor: mojo/cbor.md
       - gld-flatbuffers: mojo/flatbuffers.md
+      - gld-ion: mojo/ion.md
       - gld-json: mojo/json.md
       - gld-messagepack: mojo/messagepack.md
       - gld-protobuf: mojo/protobuf.md
+      - gld-smile: mojo/smile.md
       - gld-toml: mojo/toml.md
       - gld-yaml: mojo/yaml.md
