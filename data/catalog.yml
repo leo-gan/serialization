@@ -40,8 +40,16 @@ standards:
   - id: flatbuffers
     name: FlatBuffers
     type: schema
+  - id: arrow
+    name: Apache Arrow
+    type: schema
 
 libraries:
+  - id: gld-arrow
+    name: gld-arrow
+    standard: arrow
+    repository: https://github.com/leo-gan/gld-arrow
+    documentation: https://leo-gan.github.io/gld-arrow/
   - id: gld-avro
     name: gld-avro
     standard: avro

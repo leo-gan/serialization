@@ -64,6 +64,7 @@ nav:
   - serializer-benchmark: serializer-benchmark/index.md
   - Mojo serializers:
       - Overview: mojo/index.md
+      - gld-arrow: mojo/arrow.md
       - gld-avro: mojo/avro.md
       - gld-bson: mojo/bson.md
       - gld-cbor: mojo/cbor.md
