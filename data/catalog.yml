@@ -43,6 +43,9 @@ standards:
   - id: arrow
     name: Apache Arrow
     type: schema
+  - id: parquet
+    name: Apache Parquet
+    type: schema
 
 libraries:
   - id: gld-arrow
@@ -85,6 +88,11 @@ libraries:
     standard: messagepack
     repository: https://github.com/leo-gan/gld-messagepack
     documentation: https://leo-gan.github.io/gld-messagepack/
+  - id: gld-parquet
+    name: gld-parquet
+    standard: parquet
+    repository: https://github.com/leo-gan/gld-parquet
+    documentation: https://leo-gan.github.io/gld-parquet/
   - id: gld-protobuf
     name: gld-protobuf
     standard: protobuf

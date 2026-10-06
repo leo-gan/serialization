@@ -72,6 +72,7 @@ nav:
       - gld-ion: mojo/ion.md
       - gld-json: mojo/json.md
       - gld-messagepack: mojo/messagepack.md
+      - gld-parquet: mojo/parquet.md
       - gld-protobuf: mojo/protobuf.md
       - gld-smile: mojo/smile.md
       - gld-toml: mojo/toml.md
