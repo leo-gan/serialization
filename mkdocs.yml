@@ -5,6 +5,9 @@ repo_url: https://github.com/leo-gan/serialization
 repo_name: leo-gan/serialization
 copyright: Copyright &copy; 2026 Leonid Ganeline
 
+extra_css:
+  - stylesheets/extra.css
+
 strict: true
 
 theme:
@@ -56,24 +59,6 @@ validation:
     anchors: warn
 
 nav:
-  - serialization:
-      - Overview: index.md
-      - Theory: https://leo-gan.github.io/GLD.SerializerBenchmark/theory
-      - Standards: serialization/standards.md
-      - Types: serialization/types.md
-  - serializer-benchmark: serializer-benchmark/index.md
-  - Mojo serializers:
-      - Overview: mojo/index.md
-      - gld-arrow: mojo/arrow.md
-      - gld-avro: mojo/avro.md
-      - gld-bson: mojo/bson.md
-      - gld-cbor: mojo/cbor.md
-      - gld-flatbuffers: mojo/flatbuffers.md
-      - gld-ion: mojo/ion.md
-      - gld-json: mojo/json.md
-      - gld-messagepack: mojo/messagepack.md
-      - gld-parquet: mojo/parquet.md
-      - gld-protobuf: mojo/protobuf.md
-      - gld-smile: mojo/smile.md
-      - gld-toml: mojo/toml.md
-      - gld-yaml: mojo/yaml.md
+  - Overview: index.md
+  - Theory: https://leo-gan.github.io/GLD.SerializerBenchmark/theory
+  - Standards: serialization/standards.md

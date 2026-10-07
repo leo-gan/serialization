@@ -1,8 +1,12 @@
 """Render the link index from data/catalog.yml.
 
-Mojo pages call library_page. The types page calls types_table.
+The start page calls hub_page. Run python main.py to rewrite README.md so it matches.
+The standards page calls standards_table.
 A URL must start with https://. A serializer type is schema or schema-less.
 A library must name a standard that exists in the catalog.
+
+To add a library, add a catalog entry and run python main.py.
+The start page and the README then list its documentation link.
 """
 
 from __future__ import annotations
@@ -96,113 +100,85 @@ def _load() -> dict:
             _https(library[field], f"{library['id']}.{field}")
     _unique(libraries, "id", "library id")
 
-    data["standard_by_id"] = {item["id"]: item for item in standards}
-    data["library_by_id"] = {item["id"]: item for item in libraries}
     return data
+
+
+# The visible label is Learn. The address is the Serialization 101 course.
+PERSPECTIVES = (
+    ("History", "theory/101/historical_perspective/"),
+    ("Data science", "theory/101/data_science_perspective/"),
+    ("Engineering", "theory/101/engineer_perspective/"),
+)
 
 
 def _cell(text: str) -> str:
     return str(text).replace("|", "\\|").replace("\n", " ").strip()
 
 
-def _visible_url(url: str) -> str:
-    return url.removeprefix("https://").rstrip("/")
+def _named_link(label: str, url: str) -> str:
+    return f"[{_cell(label)}]({url})"
 
 
-def _link(url: str) -> str:
-    return f"[{_visible_url(url)}]({url})"
+def hub_markdown(benchmark: dict, libraries: list[dict], *, page: bool = False) -> str:
+    """Return the README, or the start page when page is true.
+
+    Link to documentation only. Each docs site links to its repository.
+    The page drops the colon after Mojo serializers and Learn. The badge
+    already separates each label from the links that follow.
+    """
+    site = benchmark["site"].rstrip("/")
+    # The space before the dot does not break, so a wrapped line does not start with "·".
+    separator = "\u00a0· "
+    mojo = separator.join(
+        _named_link(library["name"], library["documentation"]) for library in libraries
+    )
+    perspectives = separator.join(
+        _named_link(label, f"{site}/{path}") for label, path in PERSPECTIVES
+    )
+    course = _named_link("Learn", f"{site}/theory/101/")
+    colon = "" if page else ":"
+    lines = [
+        "# Serialization",
+        "",
+        f"- {_named_link('Serializer Benchmarks', benchmark['site'])}",
+        f"- **Mojo serializers**{colon} {mojo}",
+        f"- **{course}**{colon} {perspectives}",
+        "",
+    ]
+    return "\n".join(lines)
 
 
 def define_env(env) -> None:
     catalog = _load()
     benchmark = catalog["benchmark"]
     standards = catalog["standards"]
-    standard_by_id = catalog["standard_by_id"]
-    library_by_id = catalog["library_by_id"]
+    libraries = catalog["libraries"]
+
+    expected = hub_markdown(benchmark, libraries)
+    readme = ROOT / "README.md"
+    actual = readme.read_text(encoding="utf-8")
+    if actual != expected:
+        raise ValueError(
+            "README.md does not match data/catalog.yml. Run python main.py to rewrite it."
+        )
 
     @env.macro
-    def standard_names() -> str:
-        return "\n".join(f"- {_cell(item['name'])}" for item in standards)
+    def hub_page() -> str:
+        return hub_markdown(benchmark, libraries, page=True)
 
     @env.macro
-    def types_table() -> str:
+    def standards_table() -> str:
         rows = ["| Standard | Type |", "| --- | --- |"]
         for item in standards:
             rows.append(f"| {_cell(item['name'])} | {_cell(item['type'])} |")
         return "\n".join(rows)
 
-    @env.macro
-    def benchmark_page() -> str:
-        rows = [
-            "| Link | URL |",
-            "| --- | --- |",
-            f"| Repository | {_link(benchmark['repository'])} |",
-            f"| Documentation | {_link(benchmark['site'])} |",
-            f"| Dashboard | {_link(benchmark['dashboard'])} |",
-        ]
-        return "\n".join(
-            [
-                "# serializer-benchmark",
-                "",
-                "These links open GLD.SerializerBenchmark.",
-                "",
-                "\n".join(rows),
-            ]
-        )
 
-    @env.macro
-    def mojo_index() -> str:
-        """List libraries on the Mojo index. Page stems match docs/mojo/<stem>.md."""
-        by_standard = {item["standard"]: item for item in catalog["libraries"]}
-        blocks: list[str] = []
-        current = None
-        lines: list[str] = []
+def main() -> None:
+    catalog = _load()
+    text = hub_markdown(catalog["benchmark"], catalog["libraries"])
+    (ROOT / "README.md").write_text(text, encoding="utf-8")
 
-        def flush() -> None:
-            if current is None:
-                return
-            title = "Schema-less" if current == "schema-less" else "Schema"
-            blocks.append("## " + title)
-            blocks.append("")
-            blocks.append("\n".join(lines))
 
-        for standard in standards:
-            library = by_standard.get(standard["id"])
-            if library is None:
-                continue
-            if standard["type"] != current:
-                flush()
-                current = standard["type"]
-                lines = []
-            stem = library["id"].removeprefix("gld-")
-            lines.append(
-                f"- [{library['name']}]({stem}.md) for {_cell(standard['name'])}"
-            )
-        flush()
-        return "\n\n".join(blocks)
-
-    @env.macro
-    def library_page(library_id: str) -> str:
-        library = library_by_id.get(library_id)
-        if library is None:
-            raise KeyError(library_id)
-        standard = standard_by_id[library["standard"]]
-        rows = [
-            "| Link | URL |",
-            "| --- | --- |",
-            f"| Repository | {_link(library['repository'])} |",
-            f"| Documentation | {_link(library['documentation'])} |",
-        ]
-        prose = (
-            f"{library['name']} is a Mojo 1.1 library for {standard['name']}. "
-            f"The serializer type is {standard['type']}."
-        )
-        return "\n".join(
-            [
-                f"# {library['name']}",
-                "",
-                prose,
-                "",
-                "\n".join(rows),
-            ]
-        )
+if __name__ == "__main__":
+    main()

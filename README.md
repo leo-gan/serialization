@@ -1,26 +1,5 @@
 # Serialization
 
-This site stores links to GLD.SerializerBenchmark and to the Mojo gld-* libraries. The libraries target Mojo 1.1.
-
-Each linked repository stays usable on its own. The address is [leo-gan.github.io/serialization](https://leo-gan.github.io/serialization/) after GitHub Pages is set to publish the `gh-pages` branch.
-
-## Preview
-
-```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-mkdocs serve
-```
-
-## Change a link
-
-Names, serializer types, and URLs live in [`data/catalog.yml`](data/catalog.yml). The Mojo pages call `library_page` in [`main.py`](main.py).
-
-To add a library, add a catalog entry, add `docs/mojo/<name>.md` containing the `library_page` call, and add that page under `Mojo serializers` in [`mkdocs.yml`](mkdocs.yml). The Mojo index lists every library in the catalog.
-
-Add a repository when it has code and a GitHub remote.
-
-## Deploy
-
-A push to `main` runs [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml). The job publishes the site with `mkdocs gh-deploy`.
+- [Serializer Benchmarks](https://leo-gan.github.io/GLD.SerializerBenchmark/)
+- **Mojo serializers**: [gld-arrow](https://leo-gan.github.io/gld-arrow/) · [gld-avro](https://leo-gan.github.io/gld-avro/) · [gld-bson](https://leo-gan.github.io/gld-bson/) · [gld-cbor](https://leo-gan.github.io/gld-cbor/) · [gld-flatbuffers](https://leo-gan.github.io/gld-flatbuffers/) · [gld-ion](https://leo-gan.github.io/gld-ion/) · [gld-json](https://leo-gan.github.io/gld-json/) · [gld-messagepack](https://leo-gan.github.io/gld-messagepack/) · [gld-parquet](https://leo-gan.github.io/gld-parquet/) · [gld-protobuf](https://leo-gan.github.io/gld-protobuf/) · [gld-smile](https://leo-gan.github.io/gld-smile/) · [gld-toml](https://leo-gan.github.io/gld-toml/) · [gld-yaml](https://leo-gan.github.io/gld-yaml/)
+- **[Learn](https://leo-gan.github.io/GLD.SerializerBenchmark/theory/101/)**: [History](https://leo-gan.github.io/GLD.SerializerBenchmark/theory/101/historical_perspective/) · [Data science](https://leo-gan.github.io/GLD.SerializerBenchmark/theory/101/data_science_perspective/) · [Engineering](https://leo-gan.github.io/GLD.SerializerBenchmark/theory/101/engineer_perspective/)
