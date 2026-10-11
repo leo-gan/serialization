@@ -1,7 +1,7 @@
 """Render the link index from data/catalog.yml.
 
 The start page calls hub_page. Run python main.py to rewrite README.md so it matches.
-The standards page calls standards_table.
+Libraries are grouped by language. The standards page calls standards_table.
 A URL must start with https://. A serializer type is schema or schema-less.
 A library must name a standard that exists in the catalog.
 
@@ -20,7 +20,8 @@ CATALOG_PATH = ROOT / "data" / "catalog.yml"
 
 BENCHMARK_FIELDS = ("name", "repository", "site", "dashboard")
 STANDARD_FIELDS = ("id", "name", "type")
-LIBRARY_FIELDS = ("id", "name", "standard", "repository", "documentation")
+LIBRARY_FIELDS = ("id", "name", "standard", "language", "repository", "documentation")
+LANGUAGES = ("mojo", "swift", "zig", "php", "kotlin", "fortran")
 SERIALIZER_TYPES = {"schema", "schema-less"}
 RETIRED_KEYS = ("measurements", "planned_measurements", "languages")
 URL_FIELDS = {
@@ -98,6 +99,8 @@ def _load() -> dict:
             raise ValueError(f"{library['id']} names an unknown standard")
         for field in URL_FIELDS["library"]:
             _https(library[field], f"{library['id']}.{field}")
+        if library["language"] not in LANGUAGES:
+            raise ValueError(f"{library['id']} has unknown language {library['language']}")
     _unique(libraries, "id", "library id")
 
     return data
@@ -119,19 +122,26 @@ def _named_link(label: str, url: str) -> str:
     return f"[{_cell(label)}]({url})"
 
 
+LANGUAGE_LABELS = {
+    "mojo": "Mojo serializers",
+    "swift": "Swift serializers",
+    "zig": "Zig serializers",
+    "php": "PHP serializers",
+    "kotlin": "Kotlin serializers",
+    "fortran": "Fortran serializers",
+}
+
+
 def hub_markdown(benchmark: dict, libraries: list[dict], *, page: bool = False) -> str:
     """Return the README, or the start page when page is true.
 
     Link to documentation only. Each docs site links to its repository.
-    The page drops the colon after Mojo serializers and Learn. The badge
+    The page drops the colon after each language group and Learn. The badge
     already separates each label from the links that follow.
     """
     site = benchmark["site"].rstrip("/")
     # The space before the dot does not break, so a wrapped line does not start with "·".
     separator = "\u00a0· "
-    mojo = separator.join(
-        _named_link(library["name"], library["documentation"]) for library in libraries
-    )
     perspectives = separator.join(
         _named_link(label, f"{site}/{path}") for label, path in PERSPECTIVES
     )
@@ -141,10 +151,17 @@ def hub_markdown(benchmark: dict, libraries: list[dict], *, page: bool = False) 
         "# Serialization",
         "",
         f"- {_named_link('Serializer Benchmarks', benchmark['site'])}",
-        f"- **Mojo serializers**{colon} {mojo}",
-        f"- **{course}**{colon} {perspectives}",
-        "",
     ]
+    for language in LANGUAGES:
+        group = [library for library in libraries if library["language"] == language]
+        if not group:
+            continue
+        links = separator.join(
+            _named_link(library["name"], library["documentation"]) for library in group
+        )
+        lines.append(f"- **{LANGUAGE_LABELS[language]}**{colon} {links}")
+    lines.append(f"- **{course}**{colon} {perspectives}")
+    lines.append("")
     return "\n".join(lines)
 
 
