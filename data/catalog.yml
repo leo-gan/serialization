@@ -46,70 +46,159 @@ standards:
   - id: parquet
     name: Apache Parquet
     type: schema
+  - id: hdf5
+    name: HDF5
+    type: schema
+  - id: netcdf
+    name: NetCDF
+    type: schema
+  - id: adios2
+    name: ADIOS2
+    type: schema
 
 libraries:
   - id: gld-arrow
     name: gld-arrow
     standard: arrow
+    language: mojo
     repository: https://github.com/leo-gan/gld-arrow
     documentation: https://leo-gan.github.io/gld-arrow/
   - id: gld-avro
     name: gld-avro
     standard: avro
+    language: mojo
     repository: https://github.com/leo-gan/gld-avro
     documentation: https://leo-gan.github.io/gld-avro/
   - id: gld-bson
     name: gld-bson
     standard: bson
+    language: mojo
     repository: https://github.com/leo-gan/gld-bson
     documentation: https://leo-gan.github.io/gld-bson/
   - id: gld-cbor
     name: gld-cbor
     standard: cbor
+    language: mojo
     repository: https://github.com/leo-gan/gld-cbor
     documentation: https://leo-gan.github.io/gld-cbor/
   - id: gld-flatbuffers
     name: gld-flatbuffers
     standard: flatbuffers
+    language: mojo
     repository: https://github.com/leo-gan/gld-flatbuffers
     documentation: https://leo-gan.github.io/gld-flatbuffers/
   - id: gld-ion
     name: gld-ion
     standard: ion
+    language: mojo
     repository: https://github.com/leo-gan/gld-ion
     documentation: https://leo-gan.github.io/gld-ion/
   - id: gld-json
     name: gld-json
     standard: json
+    language: mojo
     repository: https://github.com/leo-gan/gld-json
     documentation: https://leo-gan.github.io/gld-json/
   - id: gld-messagepack
     name: gld-messagepack
     standard: messagepack
+    language: mojo
     repository: https://github.com/leo-gan/gld-messagepack
     documentation: https://leo-gan.github.io/gld-messagepack/
   - id: gld-parquet
     name: gld-parquet
     standard: parquet
+    language: mojo
     repository: https://github.com/leo-gan/gld-parquet
     documentation: https://leo-gan.github.io/gld-parquet/
   - id: gld-protobuf
     name: gld-protobuf
     standard: protobuf
+    language: mojo
     repository: https://github.com/leo-gan/gld-protobuf
     documentation: https://leo-gan.github.io/gld-protobuf/
   - id: gld-smile
     name: gld-smile
     standard: smile
+    language: mojo
     repository: https://github.com/leo-gan/gld-smile
     documentation: https://leo-gan.github.io/gld-smile/
   - id: gld-toml
     name: gld-toml
     standard: toml
+    language: mojo
     repository: https://github.com/leo-gan/gld-toml
     documentation: https://leo-gan.github.io/gld-toml/
   - id: gld-yaml
     name: gld-yaml
     standard: yaml
+    language: mojo
     repository: https://github.com/leo-gan/gld-yaml
     documentation: https://leo-gan.github.io/gld-yaml/
+
+  - id: gld-hdf5
+    name: gld-hdf5
+    standard: hdf5
+    language: mojo
+    repository: https://github.com/leo-gan/gld-hdf5
+    documentation: https://leo-gan.github.io/gld-hdf5/
+  - id: gld-netcdf
+    name: gld-netcdf
+    standard: netcdf
+    language: mojo
+    repository: https://github.com/leo-gan/gld-hdf5
+    documentation: https://leo-gan.github.io/gld-hdf5/
+  - id: gld-adios2
+    name: gld-adios2
+    standard: adios2
+    language: mojo
+    repository: https://github.com/leo-gan/gld-hdf5
+    documentation: https://leo-gan.github.io/gld-hdf5/
+  - id: gld-avro-swift
+    name: gld-avro-swift
+    standard: avro
+    language: swift
+    repository: https://github.com/leo-gan/gld-avro-swift
+    documentation: https://leo-gan.github.io/gld-avro-swift/
+  - id: gld-ion-swift
+    name: gld-ion-swift
+    standard: ion
+    language: swift
+    repository: https://github.com/leo-gan/gld-ion-swift
+    documentation: https://leo-gan.github.io/gld-ion-swift/
+  - id: gld-avro-zig
+    name: gld-avro-zig
+    standard: avro
+    language: zig
+    repository: https://github.com/leo-gan/gld-avro-zig
+    documentation: https://leo-gan.github.io/gld-avro-zig/
+  - id: gld-arrow-zig
+    name: gld-arrow-zig
+    standard: arrow
+    language: zig
+    repository: https://github.com/leo-gan/gld-arrow-zig
+    documentation: https://leo-gan.github.io/gld-arrow-zig/
+  - id: gld-arrow-php
+    name: gld-arrow-php
+    standard: arrow
+    language: php
+    repository: https://github.com/leo-gan/gld-arrow-php
+    documentation: https://leo-gan.github.io/gld-arrow-php/
+  - id: gld-ion-php
+    name: gld-ion-php
+    standard: ion
+    language: php
+    repository: https://github.com/leo-gan/gld-ion-php
+    documentation: https://leo-gan.github.io/gld-ion-php/
+  - id: gld-ion-kotlin
+    name: gld-ion-kotlin
+    standard: ion
+    language: kotlin
+    repository: https://github.com/leo-gan/gld-ion-kotlin
+    documentation: https://leo-gan.github.io/gld-ion-kotlin/
+  - id: gld-arrow-fortran
+    name: gld-arrow-fortran
+    standard: arrow
+    language: fortran
+    repository: https://github.com/leo-gan/gld-arrow-fortran
+    documentation: https://leo-gan.github.io/gld-arrow-fortran/
