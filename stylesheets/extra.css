@@ -1,0 +1,32 @@
+/* Tabs already list Overview, Theory, and Standards. On a wide screen the sidebar would only repeat the current page. */
+@media screen and (min-width: 76.25em) {
+  .md-sidebar--primary {
+    display: none;
+  }
+}
+
+/* Keep each start-page link on one line. A hyphen in a name such as gld-messagepack would otherwise split the link on a narrow screen. */
+.hub a {
+  white-space: nowrap;
+}
+
+/* The two group labels name the links that follow, so they are heavier than those links. */
+.hub strong {
+  display: inline-block;
+  margin-right: 0.35rem;
+  padding: 0.05rem 0.4rem;
+  border-radius: 0.2rem;
+  font-weight: 700;
+  color: var(--md-primary-bg-color);
+  background-color: var(--md-primary-fg-color);
+}
+
+.hub strong a {
+  color: inherit;
+  font-weight: 700;
+}
+
+.hub strong a:hover,
+.hub strong a:focus {
+  text-decoration: underline;
+}
