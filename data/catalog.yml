@@ -31,6 +31,9 @@ standards:
   - id: smile
     name: Smile
     type: schema-less
+  - id: kiln
+    name: Kiln
+    type: schema
   - id: protobuf
     name: Protocol Buffers
     type: schema
@@ -99,6 +102,12 @@ libraries:
     language: mojo
     repository: https://github.com/leo-gan/gld-json
     documentation: https://leo-gan.github.io/gld-json/
+  - id: gld-kiln
+    name: gld-kiln
+    standard: kiln
+    language: mojo
+    repository: https://github.com/leo-gan/gld-kiln
+    documentation: https://leo-gan.github.io/gld-kiln/
   - id: gld-messagepack
     name: gld-messagepack
     standard: messagepack
