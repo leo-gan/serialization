@@ -211,3 +211,63 @@ libraries:
     language: fortran
     repository: https://github.com/leo-gan/gld-arrow-fortran
     documentation: https://leo-gan.github.io/gld-arrow-fortran/
+  - id: gld-kiln-python
+    name: gld-kiln-python
+    standard: kiln
+    language: python
+    repository: https://github.com/leo-gan/gld-kiln-python
+    documentation: https://leo-gan.github.io/gld-kiln-python/
+  - id: gld-kiln-rust
+    name: gld-kiln-rust
+    standard: kiln
+    language: rust
+    repository: https://github.com/leo-gan/gld-kiln-rust
+    documentation: https://leo-gan.github.io/gld-kiln-rust/
+  - id: gld-kiln-c
+    name: gld-kiln-c
+    standard: kiln
+    language: c
+    repository: https://github.com/leo-gan/gld-kiln-c
+    documentation: https://leo-gan.github.io/gld-kiln-c/
+  - id: gld-kiln-cpp
+    name: gld-kiln-cpp
+    standard: kiln
+    language: cpp
+    repository: https://github.com/leo-gan/gld-kiln-cpp
+    documentation: https://leo-gan.github.io/gld-kiln-cpp/
+  - id: gld-kiln-typescript
+    name: gld-kiln-typescript
+    standard: kiln
+    language: typescript
+    repository: https://github.com/leo-gan/gld-kiln-typescript
+    documentation: https://leo-gan.github.io/gld-kiln-typescript/
+  - id: gld-kiln-go
+    name: gld-kiln-go
+    standard: kiln
+    language: go
+    repository: https://github.com/leo-gan/gld-kiln-go
+    documentation: https://leo-gan.github.io/gld-kiln-go/
+  - id: gld-kiln-java
+    name: gld-kiln-java
+    standard: kiln
+    language: java
+    repository: https://github.com/leo-gan/gld-kiln-java
+    documentation: https://leo-gan.github.io/gld-kiln-java/
+  - id: gld-kiln-swift
+    name: gld-kiln-swift
+    standard: kiln
+    language: swift
+    repository: https://github.com/leo-gan/gld-kiln-swift
+    documentation: https://leo-gan.github.io/gld-kiln-swift/
+  - id: gld-kiln-zig
+    name: gld-kiln-zig
+    standard: kiln
+    language: zig
+    repository: https://github.com/leo-gan/gld-kiln-zig
+    documentation: https://leo-gan.github.io/gld-kiln-zig/
+  - id: gld-kiln-csharp
+    name: gld-kiln-csharp
+    standard: kiln
+    language: csharp
+    repository: https://github.com/leo-gan/gld-kiln-csharp
+    documentation: https://leo-gan.github.io/gld-kiln-csharp/

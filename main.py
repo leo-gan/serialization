@@ -21,7 +21,22 @@ CATALOG_PATH = ROOT / "data" / "catalog.yml"
 BENCHMARK_FIELDS = ("name", "repository", "site", "dashboard")
 STANDARD_FIELDS = ("id", "name", "type")
 LIBRARY_FIELDS = ("id", "name", "standard", "language", "repository", "documentation")
-LANGUAGES = ("mojo", "swift", "zig", "php", "kotlin", "fortran")
+LANGUAGES = (
+    "mojo",
+    "python",
+    "rust",
+    "c",
+    "cpp",
+    "typescript",
+    "go",
+    "java",
+    "swift",
+    "zig",
+    "csharp",
+    "php",
+    "kotlin",
+    "fortran",
+)
 SERIALIZER_TYPES = {"schema", "schema-less"}
 RETIRED_KEYS = ("measurements", "planned_measurements", "languages")
 URL_FIELDS = {
@@ -124,8 +139,16 @@ def _named_link(label: str, url: str) -> str:
 
 LANGUAGE_LABELS = {
     "mojo": "Mojo serializers",
+    "python": "Python serializers",
+    "rust": "Rust serializers",
+    "c": "C serializers",
+    "cpp": "C++ serializers",
+    "typescript": "TypeScript serializers",
+    "go": "Go serializers",
+    "java": "Java serializers",
     "swift": "Swift serializers",
     "zig": "Zig serializers",
+    "csharp": "C# serializers",
     "php": "PHP serializers",
     "kotlin": "Kotlin serializers",
     "fortran": "Fortran serializers",
