@@ -10,7 +10,7 @@
   white-space: nowrap;
 }
 
-/* The two group labels name the links that follow, so they are heavier than those links. */
+/* Group labels name the links that follow, so they are heavier than those links. */
 .hub strong {
   display: inline-block;
   margin-right: 0.35rem;
