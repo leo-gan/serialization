@@ -129,6 +129,8 @@ PERSPECTIVES = (
     ("Data science", "theory/101/data_science_perspective/"),
     ("Engineering", "theory/101/engineer_perspective/"),
 )
+# The Kiln group name links to the specification. The libraries stay listed beside it.
+KILN_SPEC = "https://leo-gan.github.io/gld-kiln/spec/"
 
 
 def _cell(text: str) -> str:
@@ -193,7 +195,8 @@ def hub_markdown(benchmark: dict, libraries: list[dict], *, page: bool = False) 
     kiln = [library for library in libraries if library["standard"] == "kiln"]
     kiln.sort(key=lambda library: (_language_sort_key(library["language"]), library["name"]))
     if kiln:
-        lines.append(f"- **Kiln**{colon} {_library_links(kiln, separator)}")
+        kiln_name = _named_link("Kiln", KILN_SPEC)
+        lines.append(f"- **{kiln_name}**{colon} {_library_links(kiln, separator)}")
     for language in sorted(LANGUAGES, key=_language_sort_key):
         group = [library for library in libraries if library["language"] == language]
         if not group:
