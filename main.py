@@ -1,7 +1,9 @@
 """Render the link index from data/catalog.yml.
 
 The start page calls hub_page. Run python main.py to rewrite README.md so it matches.
-Libraries are grouped by language. The standards page calls standards_table.
+The hub lists Learn, then Serializer Benchmarks, then Kiln, then one group per
+language in alphabetical order. Kiln links also stay in their language group.
+The standards page calls standards_table.
 A URL must start with https://. A serializer type is schema or schema-less.
 A library must name a standard that exists in the catalog.
 
@@ -155,12 +157,24 @@ LANGUAGE_LABELS = {
 }
 
 
+def _language_sort_key(language: str) -> str:
+    return LANGUAGE_LABELS[language].casefold()
+
+
+def _library_links(libraries: list[dict], separator: str) -> str:
+    return separator.join(
+        _named_link(library["name"], library["documentation"]) for library in libraries
+    )
+
+
 def hub_markdown(benchmark: dict, libraries: list[dict], *, page: bool = False) -> str:
     """Return the README, or the start page when page is true.
 
     Link to documentation only. Each docs site links to its repository.
-    The page drops the colon after each language group and Learn. The badge
-    already separates each label from the links that follow.
+    Order is Learn, Serializer Benchmarks, Kiln, then language groups from
+    A to Z. A Kiln library stays in its language group as well.
+    The page drops the colon after each group and Learn. The badge already
+    separates each label from the links that follow.
     """
     site = benchmark["site"].rstrip("/")
     # The space before the dot does not break, so a wrapped line does not start with "·".
@@ -173,17 +187,18 @@ def hub_markdown(benchmark: dict, libraries: list[dict], *, page: bool = False) 
     lines = [
         "# Serialization",
         "",
+        f"- **{course}**{colon} {perspectives}",
         f"- {_named_link('Serializer Benchmarks', benchmark['site'])}",
     ]
-    for language in LANGUAGES:
+    kiln = [library for library in libraries if library["standard"] == "kiln"]
+    kiln.sort(key=lambda library: (_language_sort_key(library["language"]), library["name"]))
+    if kiln:
+        lines.append(f"- **Kiln**{colon} {_library_links(kiln, separator)}")
+    for language in sorted(LANGUAGES, key=_language_sort_key):
         group = [library for library in libraries if library["language"] == language]
         if not group:
             continue
-        links = separator.join(
-            _named_link(library["name"], library["documentation"]) for library in group
-        )
-        lines.append(f"- **{LANGUAGE_LABELS[language]}**{colon} {links}")
-    lines.append(f"- **{course}**{colon} {perspectives}")
+        lines.append(f"- **{LANGUAGE_LABELS[language]}**{colon} {_library_links(group, separator)}")
     lines.append("")
     return "\n".join(lines)
 
