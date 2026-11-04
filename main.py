@@ -1,8 +1,9 @@
 """Render the link index from data/catalog.yml.
 
 The start page calls hub_page. Run python main.py to rewrite README.md so it matches.
-The hub lists Learn, then Serializer Benchmarks, then Kiln, then one group per
-language in alphabetical order. Kiln links also stay in their language group.
+The hub lists Learn, then Serializer Benchmarks, then Kiln, then the GLD
+libraries under one heading, with one group per language in alphabetical order.
+A Kiln library stays in its language group as well.
 The standards page calls standards_table.
 A URL must start with https://. A serializer type is schema or schema-less.
 A library must name a standard that exists in the catalog.
@@ -129,33 +130,42 @@ PERSPECTIVES = (
     ("Data science", "theory/101/data_science_perspective/"),
     ("Engineering", "theory/101/engineer_perspective/"),
 )
-# The Kiln group name links to the specification. The libraries stay listed beside it.
+# The Kiln name links to the specification. The phrase after it is the description.
 KILN_SPEC = "https://leo-gan.github.io/gld-kiln/spec/"
+KILN_SUFFIX = " - serialization standard for ML/AI and Web"
+# The count is the README summary. It is not a total computed from the catalog.
+BENCHMARK_SUFFIX = " for 14 languages, ~20 standards, ~300 serializers, Compliance tests"
+GLD_GROUP = "GLD serializers - cover missed standards and Kiln"
 
 
 def _cell(text: str) -> str:
     return str(text).replace("|", "\\|").replace("\n", " ").strip()
 
 
-def _named_link(label: str, url: str) -> str:
-    return f"[{_cell(label)}]({url})"
+def _named_link(label: str, url: str, *, nowrap: bool = False) -> str:
+    link = f"[{_cell(label)}]({url})"
+    # The class exists only on the start page. The README stays plain Markdown.
+    if nowrap:
+        return link + "{: .hub-name}"
+    return link
 
 
+# The GLD heading already says these are serializers, so each language is only its name.
 LANGUAGE_LABELS = {
-    "mojo": "Mojo serializers",
-    "python": "Python serializers",
-    "rust": "Rust serializers",
-    "c": "C serializers",
-    "cpp": "C++ serializers",
-    "typescript": "TypeScript serializers",
-    "go": "Go serializers",
-    "java": "Java serializers",
-    "swift": "Swift serializers",
-    "zig": "Zig serializers",
-    "csharp": "C# serializers",
-    "php": "PHP serializers",
-    "kotlin": "Kotlin serializers",
-    "fortran": "Fortran serializers",
+    "mojo": "Mojo",
+    "python": "Python",
+    "rust": "Rust",
+    "c": "C",
+    "cpp": "C++",
+    "typescript": "TypeScript",
+    "go": "Go",
+    "java": "Java",
+    "swift": "Swift",
+    "zig": "Zig",
+    "csharp": "C#",
+    "php": "PHP",
+    "kotlin": "Kotlin",
+    "fortran": "Fortran",
 }
 
 
@@ -163,9 +173,10 @@ def _language_sort_key(language: str) -> str:
     return LANGUAGE_LABELS[language].casefold()
 
 
-def _library_links(libraries: list[dict], separator: str) -> str:
+def _library_links(libraries: list[dict], separator: str, *, page: bool) -> str:
     return separator.join(
-        _named_link(library["name"], library["documentation"]) for library in libraries
+        _named_link(library["name"], library["documentation"], nowrap=page)
+        for library in libraries
     )
 
 
@@ -174,7 +185,8 @@ def hub_markdown(benchmark: dict, libraries: list[dict], *, page: bool = False) 
 
     Link to documentation only. Each docs site links to its repository.
     Order is Learn, Serializer Benchmarks, Kiln, then language groups from
-    A to Z. A Kiln library stays in its language group as well.
+    A to Z under one GLD heading. A Kiln library stays in its language group
+    as well.
     The page drops the colon after each group and Learn. The badge already
     separates each label from the links that follow.
     """
@@ -190,18 +202,30 @@ def hub_markdown(benchmark: dict, libraries: list[dict], *, page: bool = False) 
         "# Serialization",
         "",
         f"- **{course}**{colon} {perspectives}",
-        f"- {_named_link('Serializer Benchmarks', benchmark['site'])}",
+        f"- **{_named_link('Serializer Benchmarks', benchmark['site'])}**{BENCHMARK_SUFFIX}",
     ]
     kiln = [library for library in libraries if library["standard"] == "kiln"]
     kiln.sort(key=lambda library: (_language_sort_key(library["language"]), library["name"]))
     if kiln:
         kiln_name = _named_link("Kiln", KILN_SPEC)
-        lines.append(f"- **{kiln_name}**{colon} {_library_links(kiln, separator)}")
+        # The colon follows the description, so the page keeps it. Dropping it would join "Web" to the first library.
+        lines.append(
+            f"- **{kiln_name}**{KILN_SUFFIX}: {_library_links(kiln, separator, page=page)}"
+        )
+    grouped = []
     for language in sorted(LANGUAGES, key=_language_sort_key):
         group = [library for library in libraries if library["language"] == language]
-        if not group:
-            continue
-        lines.append(f"- **{LANGUAGE_LABELS[language]}**{colon} {_library_links(group, separator)}")
+        if group:
+            grouped.append((language, group))
+    if grouped:
+        # The README keeps this colon inside the heading. The page chip omits it.
+        gld_heading = f"**{GLD_GROUP}**" if page else f"**{GLD_GROUP}:**"
+        lines.append(f"- {gld_heading}")
+        for language, group in grouped:
+            lines.append(
+                f"    - **{LANGUAGE_LABELS[language]}**{colon} "
+                f"{_library_links(group, separator, page=page)}"
+            )
     lines.append("")
     return "\n".join(lines)
 
